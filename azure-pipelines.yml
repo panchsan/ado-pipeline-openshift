@@ -28,7 +28,7 @@ steps:
   inputs:
     connectionType: 'OpenShift Connection Service'
     openshiftService: 'openshift-ado-service-connection'
-    cmd: 'oc new-app openshift/dotnet:8.0~https://github.com/panchsan/ado-pipeline-openshift.git --name=ado-openshift-app --context-dir=MyDotnetOpenshiftApp'
+    cmd: 'oc new-app openshift/dotnet:7.0-ubi8~https://github.com/panchsan/ado-pipeline-openshift.git --name=ado-openshift-app --context-dir=MyDotnetOpenshiftApp'
 
 - task: oc-cmd@3
   inputs:
