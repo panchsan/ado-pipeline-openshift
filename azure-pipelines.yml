@@ -23,45 +23,54 @@ steps:
     connectionType: 'OpenShift Connection Service'
     openshiftService: 'openshift-ado-service-connection'
     cmd: 'oc project ado-pipeline-project'
-
+  displayName: 'Select Project'
 - task: oc-cmd@3
   inputs:
     connectionType: 'OpenShift Connection Service'
     openshiftService: 'openshift-ado-service-connection'
     cmd: 'oc delete buildconfig ado-openshift-app'
-
+  displayName: 'Cleanup old Build Config'
 - task: oc-cmd@3
   inputs:
     connectionType: 'OpenShift Connection Service'
     openshiftService: 'openshift-ado-service-connection'
     cmd: 'oc delete deployment ado-openshift-app'
-
+  displayName: 'Cleanup old Deployment'
 - task: oc-cmd@3
   inputs:
     connectionType: 'OpenShift Connection Service'
     openshiftService: 'openshift-ado-service-connection'
     cmd: 'oc delete service ado-openshift-app'
+  displayName: 'Cleanup old Service'
 
+
+- task: oc-cmd@3
+  inputs:
+    connectionType: 'OpenShift Connection Service'
+    openshiftService: 'openshift-ado-service-connection'
+    cmd: 'oc delete imagestream ado-openshift-app -n ado-pipeline-project'
+  displayName: 'Cleanup old Image Stream'  
 - task: oc-cmd@3
   inputs:
     connectionType: 'OpenShift Connection Service'
     openshiftService: 'openshift-ado-service-connection'
     cmd: 'oc new-app openshift/dotnet:7.0-ubi8~https://github.com/panchsan/ado-pipeline-openshift.git --name=ado-openshift-app --context-dir=MyDotnetOpenshiftApp'
-
+  displayName: 'Start New Deployment'
 - task: oc-cmd@3
   inputs:
     connectionType: 'OpenShift Connection Service'
     openshiftService: 'openshift-ado-service-connection'
     cmd: 'oc expose svc/ado-openshift-app'
-
+  displayName: 'Expose service'
 - task: oc-cmd@3
   inputs:
     connectionType: 'OpenShift Connection Service'
     openshiftService: 'openshift-ado-service-connection'
     cmd: 'oc logs -f buildconfig/ado-openshift-app'
-
+  displayName: 'Get Build Logs'
 - task: oc-cmd@3
   inputs:
     connectionType: 'OpenShift Connection Service'
     openshiftService: 'openshift-ado-service-connection'
     cmd: 'oc status'
+  displayName: 'Verify Rollout'
