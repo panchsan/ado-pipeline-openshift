@@ -28,6 +28,24 @@ steps:
   inputs:
     connectionType: 'OpenShift Connection Service'
     openshiftService: 'openshift-ado-service-connection'
+    cmd: 'oc delete buildconfig ado-openshift-app'
+
+- task: oc-cmd@3
+  inputs:
+    connectionType: 'OpenShift Connection Service'
+    openshiftService: 'openshift-ado-service-connection'
+    cmd: 'oc delete deployment ado-openshift-app'
+
+- task: oc-cmd@3
+  inputs:
+    connectionType: 'OpenShift Connection Service'
+    openshiftService: 'openshift-ado-service-connection'
+    cmd: 'oc delete service ado-openshift-app'
+
+- task: oc-cmd@3
+  inputs:
+    connectionType: 'OpenShift Connection Service'
+    openshiftService: 'openshift-ado-service-connection'
     cmd: 'oc new-app openshift/dotnet:7.0-ubi8~https://github.com/panchsan/ado-pipeline-openshift.git --name=ado-openshift-app --context-dir=MyDotnetOpenshiftApp'
 
 - task: oc-cmd@3
