@@ -43,7 +43,12 @@ steps:
     cmd: 'oc delete service ado-openshift-app'
   displayName: 'Cleanup old Service'
 
-
+- task: oc-cmd@3
+  inputs:
+    connectionType: 'OpenShift Connection Service'
+    openshiftService: 'openshift-ado-service-connection'
+    cmd: 'oc delete route ado-openshift-app'
+  displayName: 'Cleanup old Route'
 - task: oc-cmd@3
   inputs:
     connectionType: 'OpenShift Connection Service'
